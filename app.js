@@ -9,10 +9,9 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 
 const api = new leapcell.Leapcell({
-    apiKey: 'lpcl_3079002420.21e580a433ce0b1cae979ddfd8b33021',
-    endpoint: 'http://localhost:8080',
+    apiKey: process.env.LEAPCELL_API_KEY,
 });
-const table = api.repo('salamer/myblog').table('tbl1702010602858938368', 'name');
+const table = api.repo('salamer/myblog').table('tbl1702369503563026432', 'name');
 
 
 app.get('/', async (request, response) => {

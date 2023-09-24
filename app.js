@@ -29,6 +29,10 @@ app.get("/product/:id", async (request, response) => {
     });
 });
 
+app.get("/hello", (request, response) => {
+    return response.send("Hello World");
+});
+
 app.listen(8000, () => {
     console.log('App is listening on port 8000');
 });

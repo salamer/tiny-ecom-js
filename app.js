@@ -15,9 +15,17 @@ const table = api.repo('gagasalamer/myblog').table('tbl1702369503563026432', 'na
 
 
 app.get('/', async (request, response) => {
-    const res = await table.records.findMany({});
+    try {
+        const res = await table.records.findMany({});
+        return response.render('index', {
+            products: res,
+        });
+    } catch (error) {
+        console.log(error);
+    }
+
     return response.render('index', {
-        products: res,
+        products: [],
     });
 });
 

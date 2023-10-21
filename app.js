@@ -11,7 +11,7 @@ app.set('view engine', 'ejs');
 const api = new leapcell.Leapcell({
     apiKey: process.env.LEAPCELL_API_KEY,
 });
-const table = api.repo('gagasalamer/myblog').table('tbl1702369503563026432', 'name');
+const table = api.repo('salamer/myblog').table('tbl1707363939983331328', 'name');
 
 
 app.get('/', async (request, response) => {

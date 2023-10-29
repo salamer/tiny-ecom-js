@@ -10,15 +10,30 @@ app.set('view engine', 'ejs');
 
 const api = new leapcell.Leapcell({
     apiKey: process.env.LEAPCELL_API_KEY,
+    endpoint: "http://127.0.0.1:8080",
 });
-const table = api.repo('salamer/myblog').table('tbl1707363939983331328', 'name');
+
+const resource = process.env.LEAPCELL_RESOURCE || "salamer/econ";
+const tableId = process.env.LEAPCELL_TABLE_ID || "tbl1718340937798594560";
+
+const table = api.repo(resource).table(tableId, 'name');
 
 
 app.get('/', async (request, response) => {
     try {
-        const res = await table.records.findMany({});
+        const res = await table.records.findMany();
+
         return response.render('index', {
-            products: res,
+            products: res.map((product) => {
+                return {
+                    id: product.record_id,
+                    name: product.fields["Name"],
+                    category: product.fields["Category"],
+                    price: product.fields["Price"],
+                    cover: product.fields["Cover"][0],
+                    status: product.fields["Status"],
+                };
+            }),
         });
     } catch (error) {
         console.log(error);
@@ -34,6 +49,60 @@ app.get("/product/:id", async (request, response) => {
     const res = await table.records.findById(request.params.id);
     return response.render('product', {
         product: res,
+    });
+});
+
+app.get("/category/:category", async (request, response) => {
+
+    const res = await table.records.findMany({
+        where: {
+            "Category": {
+                "contain": request.params.category
+            }
+        }
+    })
+    const products = res.map((product) => {
+        return {
+            id: product.record_id,
+            name: product.fields["Name"],
+            category: product.fields["Category"],
+            price: product.fields["Price"],
+            cover: product.fields["Cover"][0],
+            status: product.fields["Status"],
+        };
+    });
+    return response.render('index', {
+        products: products,
+        category: request.params.category
+    });
+});
+
+app.get("/status/:status", async (request, response) => {
+    var whereParams = {}
+    if (request.params){
+        whereParams = {
+            "Status": {
+                "eq": decodeURIComponent(request.params.status)
+            }
+        }
+    }
+
+    const res = await table.records.findMany({
+        where: whereParams
+    })
+    const products = res.map((product) => {
+        return {
+            id: product.record_id,
+            name: product.fields["Name"],
+            category: product.fields["Category"],
+            price: product.fields["Price"],
+            cover: product.fields["Cover"][0],
+            status: product.fields["Status"],
+        };
+    });
+    return response.render('index', {
+        products: products,
+        category: request.params.category
     });
 });
 

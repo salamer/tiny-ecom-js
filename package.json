@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/salamer/tiny-ecom-js#readme",
   "dependencies": {
-    "@leapcell/leapcell-js": "^0.0.7",
+    "@leapcell/leapcell-js": "^0.0.8",
     "ejs": "^3.1.9",
     "express": "^4.18.2"
   }

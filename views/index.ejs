@@ -2,31 +2,68 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
-    <div class="bg-white">
-        <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-            <h2 class="sr-only">Products</h2>
+  <div class="bg-white">
+    <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+      <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 text-center mb-16">
+        Leapcell Surfboards Store
+      </h1>
+
+      <% if(typeof category !=="undefined" && category ) { %>
+      <div class="flex justify-center mb-16">
+        Search by category: <span class="text-blue-500 font-bold">
+          <%= category %>
+        </span>
+      </div>
+      <% } %>
 
 
-            <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                <% for(var i=0; i<products.length;i++) {%>
-                <a href="/product/<%= products[i].record_id %>" class="group">
-                    <div
-                        class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                        <img src="<%= products[i].fields["Cover"][0] %>" alt="Front of men&#039;s Basic Tee in black."
-                            class="h-full w-full object-cover object-center lg:h-full lg:w-full">
-                    </div>
-                    <h3 class="mt-4 text-sm text-gray-700"><%= products[i].fields["name"] %></h3>
-                    <p class="mt-1 text-lg font-medium text-gray-900">$<%= products[i].fields["Price"] %></p>
-                </a>
-                <% } %>
+      <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+        <% for(var i=0; i<products.length;i++) {%>
+        <div class="group">
+          <a href="/product/<%= products[i].id %>">
+            <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+              <img src="<%= products[i].cover %>" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
             </div>
+            <h3 class="mt-4 text-sm text-gray-700">
+              <%= products[i].name %>
+              <% if(products[i].status) { %>
+              <a href="/status/<%= products[i].status %>">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                  <%= products[i].status %>
 
+                </span>
+              </a>
+              <% } %>
+            </h3>
+            <p class="mt-1 text-lg font-medium text-gray-900">$<%= products[i].price %>
+            </p>
+
+          </a>
+          <div>
+            <% if(products[i].category) { %>
+            <% for(var j=0; j<products[i].category.length;j++) {%>
+            <a href="/category/<%= products[i].category[j] %>">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                <%= products[i].category[j] %>
+
+              </span>
+            </a>
+            <% } %>
+            <% } %>
+
+          </div>
         </div>
+
+        <% } %>
+
+      </div>
+
     </div>
+  </div>
 </body>

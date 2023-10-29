@@ -9,11 +9,11 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 
 const api = new leapcell.Leapcell({
-    apiKey: process.env.LEAPCELL_API_KEY,
+    apiKey: process.env.LP_API_KEY,
 });
 
-const resource = process.env.LEAPCELL_RESOURCE || "salamer/econ";
-const tableId = process.env.LEAPCELL_TABLE_ID || "tbl1718517096606511104";
+const resource = process.env.RESOURCE || "salamer/econ";
+const tableId = process.env.TABLE_ID || "tbl1718517096606511104";
 
 const table = api.repo(resource).table(tableId, 'name');
 

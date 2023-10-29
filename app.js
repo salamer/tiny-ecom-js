@@ -10,11 +10,10 @@ app.set('view engine', 'ejs');
 
 const api = new leapcell.Leapcell({
     apiKey: process.env.LEAPCELL_API_KEY,
-    endpoint: "http://127.0.0.1:8080",
 });
 
 const resource = process.env.LEAPCELL_RESOURCE || "salamer/econ";
-const tableId = process.env.LEAPCELL_TABLE_ID || "tbl1718340937798594560";
+const tableId = process.env.LEAPCELL_TABLE_ID || "tbl1718517096606511104";
 
 const table = api.repo(resource).table(tableId, 'name');
 
@@ -28,7 +27,7 @@ app.get('/', async (request, response) => {
                 return {
                     id: product.record_id,
                     name: product.fields["Name"],
-                    category: product.fields["Category"],
+                    category: product.fields["Categories"],
                     price: product.fields["Price"],
                     cover: product.fields["Cover"][0],
                     status: product.fields["Status"],
@@ -56,7 +55,7 @@ app.get("/category/:category", async (request, response) => {
 
     const res = await table.records.findMany({
         where: {
-            "Category": {
+            "Categories": {
                 "contain": request.params.category
             }
         }
@@ -65,7 +64,7 @@ app.get("/category/:category", async (request, response) => {
         return {
             id: product.record_id,
             name: product.fields["Name"],
-            category: product.fields["Category"],
+            category: product.fields["Categories"],
             price: product.fields["Price"],
             cover: product.fields["Cover"][0],
             status: product.fields["Status"],
@@ -94,7 +93,7 @@ app.get("/status/:status", async (request, response) => {
         return {
             id: product.record_id,
             name: product.fields["Name"],
-            category: product.fields["Category"],
+            category: product.fields["Categories"],
             price: product.fields["Price"],
             cover: product.fields["Cover"][0],
             status: product.fields["Status"],

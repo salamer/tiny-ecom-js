@@ -62,13 +62,13 @@
               <fieldset class="mt-4">
                 <legend class="sr-only">Choose a size</legend>
                 <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                  <% if(product.fields["Size"]) { %>
-                  <% for(var i=0;i<product.fields["Size"].length;i++) {%>
+                  <% if(product.fields["Sizes"]) { %>
+                  <% for(var i=0;i<product.fields["Sizes"].length;i++) {%>
                   <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
-                    <input type="radio" name="size-choice" value="<%= product.fields["Size"][i]
+                    <input type="radio" name="size-choice" value="<%= product.fields["Sizes"][i]
                                                 %>" class="sr-only" aria-labelledby="size-choice-1-label">
                     <span id="size-choice-<% i %>-label">
-                      <%= product.fields["Size"][i] %>
+                      <%= product.fields["Sizes"][i] %>
                     </span>
                     <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
                   </label>
@@ -79,7 +79,7 @@
               </fieldset>
             </div>
 
-            <% if(product.fields["Size"]) { %>
+            <% if(product.fields["Sizes"]) { %>
             <button type="submit" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add
               to bag</button>
             <% } else  {%>
